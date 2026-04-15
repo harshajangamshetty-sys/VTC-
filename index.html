@@ -1,918 +1,1643 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>VTC – Vaishnavi Tiffin Centre</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
-<style>
-  :root {
-    --green: #5b8a3c;
-    --green-light: #7ab54e;
-    --green-dark: #3a5c26;
-    --gold: #f0b429;
-    --bg: #0f0f0f;
-    --bg2: #161616;
-    --bg3: #1d1d1d;
-    --text: #f0ede6;
-    --muted: #888;
-    --card-bg: #1a1a1a;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VTC – Vaishnavi Tiffin Centre | Kalaburagi</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #faf6ef;
+        --cream2: #f3ede2;
+        --cream3: #ece4d4;
+        --green: #3d7a3a;
+        --green-light: #5a9e56;
+        --green-dark: #2a5628;
+        --green-pale: #edf5ec;
+        --gold: #c49a2a;
+        --gold-light: #e2b93b;
+        --gold-pale: #fdf6e0;
+        --text: #1c1a16;
+        --text2: #4a4540;
+        --muted: #8a8278;
+        --border: rgba(61, 122, 58, 0.15);
+        --shadow: 0 4px 24px rgba(61, 122, 58, 0.08);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--cream);
+        color: var(--text);
+        overflow-x: hidden;
+      }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5vw;
+        height: 70px;
+        background: rgba(250, 246, 239, 0.96);
+        backdrop-filter: blur(16px);
+        border-bottom: 1.5px solid var(--border);
+      }
+      .nav-brand-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .nav-hex {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(135deg, var(--green-dark), var(--green));
+        clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-hex span {
+        font-family: "Bebas Neue";
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        color: #fff;
+      }
+      .nav-brand-text .name {
+        font-family: "Bebas Neue";
+        font-size: 20px;
+        letter-spacing: 3px;
+        color: var(--text);
+      }
+      .nav-brand-text .name em {
+        color: var(--green);
+        font-style: normal;
+      }
+      .nav-brand-text .sub {
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: var(--muted);
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text2);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--green);
+      }
+      .nav-cta {
+        display: flex;
+        gap: 10px;
+      }
+      .btn-sw,
+      .btn-zo {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition:
+          transform 0.15s,
+          box-shadow 0.2s;
+      }
+      .btn-sw {
+        background: #fc8019;
+        color: #fff;
+        box-shadow: 0 2px 10px rgba(252, 128, 25, 0.25);
+      }
+      .btn-zo {
+        background: #e23744;
+        color: #fff;
+        box-shadow: 0 2px 10px rgba(226, 55, 68, 0.25);
+      }
+      .btn-sw:hover,
+      .btn-zo:hover {
+        transform: translateY(-2px);
+      }
 
-  html { scroll-behavior: smooth; }
+      /* HERO */
+      #home {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 80px 5vw 60px;
+        background: linear-gradient(140deg, var(--cream) 50%, #e8f5e2 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-deco {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(196, 154, 42, 0.07) 0%,
+          transparent 70%
+        );
+        right: -150px;
+        bottom: -150px;
+        pointer-events: none;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--gold-pale);
+        border: 1px solid rgba(196, 154, 42, 0.3);
+        color: var(--gold);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 7px 16px;
+        border-radius: 100px;
+        margin-bottom: 28px;
+        animation: fadeUp 0.7s ease both;
+      }
+      h1.hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(50px, 7vw, 86px);
+        font-weight: 700;
+        line-height: 1;
+        color: var(--text);
+        margin-bottom: 22px;
+        animation: fadeUp 0.7s 0.1s ease both;
+      }
+      h1.hero-title .gn {
+        color: var(--green);
+      }
+      h1.hero-title .gi {
+        display: block;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--gold);
+        font-size: 0.58em;
+      }
+      .hero-desc {
+        font-size: 16px;
+        color: var(--text2);
+        line-height: 1.8;
+        max-width: 440px;
+        margin-bottom: 36px;
+        animation: fadeUp 0.7s 0.2s ease both;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        animation: fadeUp 0.7s 0.3s ease both;
+      }
+      .btn-hs,
+      .btn-hz,
+      .btn-hg {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 14px 26px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          transform 0.15s,
+          box-shadow 0.2s;
+      }
+      .btn-hs {
+        background: #fc8019;
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(252, 128, 25, 0.3);
+      }
+      .btn-hz {
+        background: #e23744;
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(226, 55, 68, 0.3);
+      }
+      .btn-hg {
+        border: 2px solid var(--green);
+        color: var(--green);
+        background: transparent;
+      }
+      .btn-hs:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(252, 128, 25, 0.4);
+      }
+      .btn-hz:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(226, 55, 68, 0.4);
+      }
+      .btn-hg:hover {
+        background: var(--green-pale);
+      }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+      .hero-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        animation: floatUp 0.9s 0.15s ease both;
+      }
+      .hero-logo-big {
+        width: clamp(240px, 26vw, 360px);
+        aspect-ratio: 1;
+      }
+      .pent-out {
+        width: 100%;
+        aspect-ratio: 1;
+        background: linear-gradient(
+          160deg,
+          var(--green) 0%,
+          var(--green-dark) 100%
+        );
+        clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 24px 64px rgba(61, 122, 58, 0.22);
+        animation: glow-pulse 4s ease-in-out infinite;
+      }
+      .pent-in {
+        width: 68%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(circle at 40% 35%, #2d5e2b, #1a3a17);
+        border: 3px solid rgba(196, 154, 42, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+      }
+      .logo-sf {
+        font-size: clamp(22px, 3.5vw, 36px);
+      }
+      .logo-vtc {
+        font-family: "Bebas Neue";
+        font-size: clamp(34px, 5.5vw, 58px);
+        letter-spacing: 8px;
+        color: var(--gold-light);
+        line-height: 1;
+      }
+      .logo-pv {
+        font-size: clamp(8px, 1.1vw, 12px);
+        font-weight: 700;
+        letter-spacing: 3px;
+        color: #9fcf9b;
+        text-transform: uppercase;
+      }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 6vw;
-    height: 68px;
-    background: rgba(10,10,10,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(91,138,60,0.25);
-  }
-  .nav-logo {
-    display: flex; align-items: center; gap: 12px;
-    text-decoration: none;
-  }
-  .nav-logo-icon {
-    width: 44px; height: 44px;
-    background: var(--green);
-    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px; color: #fff; letter-spacing: 1px;
-    flex-shrink: 0;
-  }
-  .nav-brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px; letter-spacing: 3px;
-    color: var(--text);
-    line-height: 1;
-  }
-  .nav-brand span { color: var(--green-light); }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: var(--muted); text-decoration: none;
-    font-size: 13px; font-weight: 500; letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--green-light); }
-  .nav-order {
-    background: var(--green);
-    color: #fff; border: none;
-    padding: 9px 22px; border-radius: 4px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 700; letter-spacing: 1px;
-    cursor: pointer; text-decoration: none;
-    text-transform: uppercase;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .nav-order:hover { background: var(--green-light); transform: translateY(-1px); }
+      .hero-chips {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .chip {
+        position: absolute;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 7px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--green-dark);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        white-space: nowrap;
+      }
+      .chip-1 {
+        top: 5%;
+        right: 0;
+        animation: fl1 3s ease-in-out infinite;
+      }
+      .chip-2 {
+        bottom: 15%;
+        left: 0;
+        animation: fl2 3.5s ease-in-out infinite;
+      }
+      .chip-3 {
+        bottom: 5%;
+        right: 5%;
+        animation: fl1 4s 0.5s ease-in-out infinite;
+      }
 
-  /* ── HERO ── */
-  #home {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 100px 6vw 60px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(91,138,60,0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 30% 40% at 20% 80%, rgba(240,180,41,0.06) 0%, transparent 60%);
-  }
-  .hero-grid-lines {
-    position: absolute; inset: 0; opacity: 0.04;
-    background-image:
-      linear-gradient(var(--green) 1px, transparent 1px),
-      linear-gradient(90deg, var(--green) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  .hero-content { position: relative; z-index: 2; max-width: 680px; }
-  .hero-tag {
-    display: inline-block;
-    background: rgba(91,138,60,0.18);
-    border: 1px solid rgba(91,138,60,0.4);
-    color: var(--green-light);
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    padding: 6px 14px; border-radius: 2px;
-    margin-bottom: 28px;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-headline {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 10vw, 130px);
-    line-height: 0.92;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-  .hero-headline .accent { color: var(--green-light); }
-  .hero-headline .italic {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: var(--gold);
-    font-size: 0.7em;
-    display: block;
-  }
-  .hero-sub {
-    font-size: 16px; color: var(--muted); line-height: 1.7;
-    max-width: 440px; margin-bottom: 40px;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
-  .hero-actions {
-    display: flex; gap: 16px; flex-wrap: wrap;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--green); color: #fff;
-    padding: 14px 32px; border-radius: 4px;
-    font-size: 14px; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; text-decoration: none;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 0 0 0 rgba(91,138,60,0.4);
-  }
-  .btn-primary:hover {
-    background: var(--green-light);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(91,138,60,0.35);
-  }
-  .btn-secondary {
-    display: inline-flex; align-items: center; gap: 8px;
-    border: 1px solid rgba(240,180,41,0.4);
-    color: var(--gold); background: transparent;
-    padding: 14px 32px; border-radius: 4px;
-    font-size: 14px; font-weight: 600; letter-spacing: 1px;
-    text-decoration: none;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .btn-secondary:hover {
-    background: rgba(240,180,41,0.08);
-    border-color: var(--gold);
-  }
+      /* STATS */
+      .stats-bar {
+        display: flex;
+        border-top: 1.5px solid var(--border);
+        background: #fff;
+      }
+      .stat {
+        flex: 1;
+        padding: 26px 0;
+        text-align: center;
+        border-right: 1.5px solid var(--border);
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat-n {
+        font-family: "Bebas Neue";
+        font-size: 38px;
+        color: var(--green);
+        line-height: 1;
+      }
+      .stat-l {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-top: 3px;
+      }
 
-  /* hero logo big */
-  .hero-visual {
-    position: absolute; right: 5vw; top: 50%;
-    transform: translateY(-50%);
-    width: clamp(260px, 32vw, 420px);
-    animation: floatIn 0.8s 0.2s ease both;
-    z-index: 2;
-  }
-  .hero-pentagon {
-    width: 100%; aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--green-dark), var(--green));
-    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 30px 80px rgba(91,138,60,0.3);
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-  .hero-inner-ring {
-    width: 70%; aspect-ratio: 1;
-    background: linear-gradient(135deg, #1a2e12, #2a4a1c);
-    border-radius: 50%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    border: 3px solid rgba(240,180,41,0.4);
-    gap: 4px;
-  }
-  .hero-vtc {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 6vw, 60px);
-    letter-spacing: 6px;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .hero-pure-veg {
-    font-size: clamp(8px, 1.2vw, 12px);
-    letter-spacing: 3px; color: var(--green-light);
-    text-transform: uppercase; font-weight: 600;
-  }
-  .hero-sunflower { font-size: clamp(18px, 3vw, 28px); }
+      /* SECTIONS */
+      section {
+        padding: 90px 5vw;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 14px;
+      }
+      .eyebrow::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: var(--gold);
+      }
+      .sec-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(36px, 5vw, 60px);
+        font-weight: 700;
+        line-height: 1.05;
+        color: var(--text);
+        margin-bottom: 48px;
+      }
+      .sec-title .g {
+        color: var(--green);
+      }
+      .sec-title .au {
+        color: var(--gold);
+        font-style: italic;
+      }
 
-  /* stat strip */
-  .stats-strip {
-    display: flex; gap: 0;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    margin: 0 6vw;
-    animation: fadeUp 0.6s 0.4s ease both;
-  }
-  .stat-item {
-    flex: 1; padding: 28px 0;
-    text-align: center;
-    border-right: 1px solid rgba(255,255,255,0.06);
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px; color: var(--green-light);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 11px; letter-spacing: 2px;
-    color: var(--muted); text-transform: uppercase; margin-top: 4px;
-  }
+      /* ABOUT */
+      #about {
+        background: #fff;
+      }
+      .about-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 72px;
+        align-items: start;
+      }
+      .about-body p {
+        font-size: 16px;
+        color: var(--text2);
+        line-height: 1.85;
+        margin-bottom: 18px;
+      }
+      .about-body strong {
+        color: var(--text);
+      }
+      .pillars {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 32px;
+      }
+      .pillar {
+        background: var(--green-pale);
+        border: 1.5px solid rgba(61, 122, 58, 0.15);
+        border-radius: 12px;
+        padding: 20px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .pillar:hover {
+        border-color: var(--green);
+        transform: translateY(-3px);
+      }
+      .pillar-icon {
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
+      .pillar-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 5px;
+      }
+      .pillar-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .about-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .acard {
+        background: var(--cream);
+        border: 1.5px solid var(--border);
+        border-left: 4px solid var(--green);
+        border-radius: 12px;
+        padding: 22px 26px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .acard:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      .acard.gold {
+        border-left-color: var(--gold);
+      }
+      .acard-lbl {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 8px;
+      }
+      .acard.gold .acard-lbl {
+        color: var(--gold);
+      }
+      .acard-val {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.1;
+      }
+      .acard-sub {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 5px;
+        line-height: 1.5;
+      }
 
-  /* ── SECTION WRAPPER ── */
-  section { padding: 100px 6vw; }
-  .section-eyebrow {
-    font-size: 11px; letter-spacing: 4px;
-    text-transform: uppercase; color: var(--green-light);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(42px, 6vw, 72px);
-    line-height: 0.95; letter-spacing: 1px;
-    margin-bottom: 48px;
-  }
-  .section-title .gold { color: var(--gold); }
+      /* MENU */
+      #menu {
+        background: var(--cream);
+      }
+      .menu-tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+      }
+      .tab {
+        padding: 9px 22px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: 1.5px solid var(--border);
+        background: #fff;
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .tab.active {
+        background: var(--green);
+        color: #fff;
+        border-color: var(--green);
+      }
+      .tab:not(.active):hover {
+        border-color: var(--green);
+        color: var(--green);
+      }
 
-  /* ── ABOUT ── */
-  #about { background: var(--bg2); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
-  }
-  .about-text p {
-    font-size: 16px; line-height: 1.85;
-    color: #bbb; margin-bottom: 20px;
-  }
-  .about-text p strong { color: var(--text); }
-  .pillars {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 16px; margin-top: 36px;
-  }
-  .pillar {
-    background: var(--bg3);
-    border: 1px solid rgba(91,138,60,0.2);
-    border-radius: 8px; padding: 20px;
-    transition: border-color 0.25s, transform 0.2s;
-  }
-  .pillar:hover {
-    border-color: var(--green);
-    transform: translateY(-3px);
-  }
-  .pillar-icon { font-size: 28px; margin-bottom: 10px; }
-  .pillar-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
-  .pillar-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-  .about-visual {
-    display: flex; flex-direction: column; gap: 20px;
-  }
-  .about-card {
-    background: var(--bg3);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-left: 4px solid var(--green);
-    border-radius: 8px; padding: 24px 28px;
-  }
-  .about-card-label {
-    font-size: 11px; letter-spacing: 2px; color: var(--green-light);
-    text-transform: uppercase; margin-bottom: 8px;
-  }
-  .about-card-value {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px; color: var(--text); letter-spacing: 1px;
-  }
-  .about-card-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 18px;
+      }
+      .mcard {
+        background: #fff;
+        border: 1.5px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition:
+          transform 0.22s,
+          box-shadow 0.22s,
+          border-color 0.22s;
+      }
+      .mcard:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 40px rgba(61, 122, 58, 0.12);
+        border-color: rgba(61, 122, 58, 0.3);
+      }
+      .mcard.hidden {
+        display: none;
+      }
 
-  /* ── MENU ── */
-  #menu { background: var(--bg); }
-  .menu-tabs {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-  .tab {
-    padding: 8px 20px; border-radius: 3px;
-    font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
-    text-transform: uppercase; cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: transparent; color: var(--muted);
-    transition: all 0.2s;
-  }
-  .tab.active, .tab:hover {
-    background: var(--green); color: #fff;
-    border-color: var(--green);
-  }
-  .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-  }
-  .menu-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 10px; padding: 22px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    cursor: default;
-  }
-  .menu-card:hover {
-    border-color: var(--green);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-  }
-  .menu-card.hidden { display: none; }
-  .menu-item-left { display: flex; align-items: center; gap: 14px; }
-  .menu-emoji { font-size: 26px; }
-  .menu-name {
-    font-size: 15px; font-weight: 600;
-    margin-bottom: 3px;
-  }
-  .menu-badge {
-    font-size: 10px; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--green-light);
-    background: rgba(91,138,60,0.12);
-    padding: 2px 7px; border-radius: 2px;
-  }
-  .menu-price {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px; color: var(--gold);
-    letter-spacing: 1px;
-  }
-  .menu-price span { font-size: 16px; color: var(--muted); }
+      .mcard-img-wrap {
+        width: 100%;
+        height: 155px;
+        background: var(--cream2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        position: relative;
+        overflow: hidden;
+      }
+      .mcard-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      .mcard-img-wrap img.loaded {
+        opacity: 1;
+      }
+      .mcard-img-wrap .ef {
+        position: relative;
+        z-index: 1;
+        transition: opacity 0.4s;
+      }
+      .mcard-img-wrap.has-image .ef {
+        opacity: 0;
+      }
 
-  /* ── ORDER CTA ── */
-  .order-cta {
-    margin-top: 60px;
-    background: linear-gradient(135deg, var(--green-dark), #1a3a0f);
-    border: 1px solid rgba(91,138,60,0.35);
-    border-radius: 16px;
-    padding: 48px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 32px; flex-wrap: wrap;
-  }
-  .order-cta-text h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 40px; letter-spacing: 2px;
-    margin-bottom: 8px;
-  }
-  .order-cta-text p { color: #9fbf8a; font-size: 15px; }
-  .btn-swiggy {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: #fc8019;
-    color: #fff; font-weight: 700; font-size: 16px;
-    padding: 16px 36px; border-radius: 8px;
-    text-decoration: none; letter-spacing: 0.5px;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .btn-swiggy:hover {
-    background: #e5721a;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(252,128,25,0.35);
-  }
-  .swiggy-logo {
-    font-size: 22px;
-  }
+      .mcard-body {
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .mcard-cat {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 4px;
+      }
+      .mcard-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .mcard-price {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--gold);
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .mcard-price sup {
+        font-size: 14px;
+        font-weight: 400;
+      }
 
-  /* ── CONTACT ── */
-  #contact { background: var(--bg2); }
-  .contact-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 60px; align-items: start;
-  }
-  .contact-info { display: flex; flex-direction: column; gap: 24px; }
-  .contact-item {
-    display: flex; align-items: flex-start; gap: 18px;
-    padding: 24px;
-    background: var(--bg3);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 10px;
-    transition: border-color 0.2s;
-  }
-  .contact-item:hover { border-color: rgba(91,138,60,0.4); }
-  .contact-icon {
-    width: 44px; height: 44px; flex-shrink: 0;
-    background: rgba(91,138,60,0.15);
-    border-radius: 8px; display: flex;
-    align-items: center; justify-content: center;
-    font-size: 20px;
-  }
-  .contact-label {
-    font-size: 11px; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--green-light);
-    margin-bottom: 6px;
-  }
-  .contact-value {
-    font-size: 15px; color: var(--text);
-    line-height: 1.5; font-weight: 500;
-  }
-  .contact-value a { color: var(--text); text-decoration: none; }
-  .contact-value a:hover { color: var(--green-light); }
+      .order-cta {
+        margin-top: 52px;
+        background: linear-gradient(
+          135deg,
+          var(--green-dark) 0%,
+          var(--green) 100%
+        );
+        border-radius: 20px;
+        padding: 48px 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .octa-text h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 38px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .octa-text p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 15px;
+      }
+      .octa-btns {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn-os,
+      .btn-oz {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          transform 0.15s,
+          box-shadow 0.2s;
+        white-space: nowrap;
+      }
+      .btn-os {
+        background: #fc8019;
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+      .btn-oz {
+        background: #e23744;
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+      .btn-os:hover,
+      .btn-oz:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
 
-  /* map placeholder */
-  .map-box {
-    background: var(--bg3);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px; overflow: hidden;
-    height: 380px;
-    display: flex; flex-direction: column;
-  }
-  .map-header {
-    padding: 18px 24px;
-    background: rgba(91,138,60,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    font-size: 13px; font-weight: 600;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .map-inner {
-    flex: 1;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 16px;
-    color: var(--muted); font-size: 14px;
-  }
-  .map-pin { font-size: 48px; }
-  .map-inner p { text-align: center; max-width: 260px; line-height: 1.5; }
-  .map-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--green); color: #fff;
-    padding: 10px 22px; border-radius: 6px;
-    text-decoration: none; font-size: 13px; font-weight: 600;
-    transition: background 0.2s;
-  }
-  .map-link:hover { background: var(--green-light); }
+      /* CONTACT */
+      #contact {
+        background: #fff;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .cinfo {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .citem {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        background: var(--cream);
+        border: 1.5px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 22px;
+        transition: border-color 0.2s;
+      }
+      .citem:hover {
+        border-color: rgba(61, 122, 58, 0.3);
+      }
+      .cicon {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        background: var(--green-pale);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+      .clabel {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 5px;
+      }
+      .cval {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .cval a {
+        color: var(--text);
+        text-decoration: none;
+      }
+      .cval a:hover {
+        color: var(--green);
+      }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #0a0a0a;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 36px 6vw;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 16px;
-  }
-  .footer-brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px; letter-spacing: 3px;
-    color: var(--text);
-  }
-  .footer-brand span { color: var(--green-light); }
-  .footer-tagline { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a {
-    font-size: 12px; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--muted);
-    text-decoration: none; transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--green-light); }
-  .footer-copy { font-size: 12px; color: #444; }
+      .map-box {
+        background: var(--cream);
+        border: 1.5px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        min-height: 340px;
+        display: flex;
+        flex-direction: column;
+      }
+      .map-head {
+        background: var(--green-pale);
+        border-bottom: 1.5px solid var(--border);
+        padding: 16px 22px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--green-dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .map-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 32px;
+        text-align: center;
+      }
+      .map-icon {
+        font-size: 52px;
+      }
+      .map-addr {
+        font-size: 14px;
+        color: var(--text2);
+        line-height: 1.7;
+      }
+      .btn-map {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--green);
+        color: #fff;
+        padding: 11px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: background 0.2s;
+      }
+      .btn-map:hover {
+        background: var(--green-dark);
+      }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes floatIn {
-    from { opacity: 0; transform: translateY(-50%) scale(0.85); }
-    to   { opacity: 1; transform: translateY(-50%) scale(1); }
-  }
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 30px 80px rgba(91,138,60,0.3); }
-    50%       { box-shadow: 0 30px 100px rgba(91,138,60,0.5); }
-  }
+      /* FOOTER */
+      footer {
+        background: var(--green-dark);
+        color: rgba(255, 255, 255, 0.8);
+        padding: 36px 5vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .footer-brand {
+        font-family: "Bebas Neue";
+        font-size: 22px;
+        letter-spacing: 3px;
+        color: #fff;
+      }
+      .footer-brand span {
+        color: var(--gold-light);
+      }
+      .footer-sub {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 4px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 22px;
+      }
+      .footer-links a {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--gold-light);
+      }
+      .footer-copy {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.25);
+      }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .hero-visual { display: none; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .stats-strip { flex-wrap: wrap; }
-    .stat-item { flex: 1 1 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .order-cta { flex-direction: column; text-align: center; }
-  }
-  @media (max-width: 600px) {
-    section { padding: 70px 5vw; }
-    .pillars { grid-template-columns: 1fr; }
-    .menu-grid { grid-template-columns: 1fr; }
-  }
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes floatUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px) scale(0.93);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes fl1 {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      @keyframes fl2 {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          box-shadow: 0 24px 64px rgba(61, 122, 58, 0.2);
+        }
+        50% {
+          box-shadow: 0 32px 80px rgba(61, 122, 58, 0.35);
+        }
+      }
 
-  /* scroll reveal */
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-</style>
-</head>
-<body>
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#home">
-    <div class="nav-logo-icon">VTC</div>
-    <div>
-      <div class="nav-brand">VAISHNAVI <span>TIFFIN</span></div>
-      <div style="font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">Pure Veg · Kalaburagi</div>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="nav-order" href="https://swig.gy/gc/1346430/Guruprasad-10544147" target="_blank">Order on Swiggy</a>
-</nav>
-
-<!-- HERO -->
-<section id="home" style="padding-top:68px;">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-content">
-    <div class="hero-tag">🌿 100% Pure Vegetarian · Kalaburagi</div>
-    <h1 class="hero-headline">
-      VAISHNAVI
-      <span class="italic">Tiffin Centre</span>
-      <span class="accent">VTC.</span>
-    </h1>
-    <p class="hero-sub">Authentic South Indian tiffin made fresh every morning — where hygiene meets flavour. Serving Kalaburagi with love since 2025.</p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="https://swig.gy/gc/1346430/Guruprasad-10544147" target="_blank">
-        🛵 Order on Swiggy
+      /* RESPONSIVE */
+      @media (max-width: 920px) {
+        #home {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-right {
+          display: none;
+        }
+        .hero-desc {
+          margin: 0 auto 36px;
+        }
+        .hero-btns {
+          justify-content: center;
+        }
+        .about-wrap {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-links {
+          display: none;
+        }
+        .order-cta {
+          flex-direction: column;
+          text-align: center;
+        }
+        .octa-btns {
+          justify-content: center;
+        }
+      }
+      @media (max-width: 600px) {
+        section {
+          padding: 60px 5vw;
+        }
+        .pillars {
+          grid-template-columns: 1fr;
+        }
+        .menu-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stats-bar {
+          flex-wrap: wrap;
+        }
+        .stat {
+          flex: 1 1 50%;
+          border-bottom: 1.5px solid var(--border);
+          border-right: none;
+        }
+        .stat:nth-child(odd) {
+          border-right: 1.5px solid var(--border);
+        }
+        .nav-cta .btn-zo {
+          display: none;
+        }
+      }
+      @media (max-width: 380px) {
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-brand-wrap" href="#home">
+        <div class="nav-hex"><span>VTC</span></div>
+        <div class="nav-brand-text">
+          <div class="name">VAISHNAVI <em>TIFFIN</em></div>
+          <div class="sub">Pure Veg · Kalaburagi</div>
+        </div>
       </a>
-      <a class="btn-secondary" href="#menu">View Menu ↓</a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-pentagon">
-      <div class="hero-inner-ring">
-        <div class="hero-sunflower">🌻</div>
-        <div class="hero-vtc">VTC</div>
-        <div class="hero-pure-veg">✦ Pure Veg ✦</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a
+          class="btn-sw"
+          href="https://swig.gy/gc/1346430/Guruprasad-10544147"
+          target="_blank"
+          >🛵 Swiggy</a
+        >
+        <a
+          class="btn-zo"
+          href="https://zomato.onelink.me/xqzv/v74eqwcw"
+          target="_blank"
+          >🍽 Zomato</a
+        >
       </div>
-    </div>
-  </div>
-</section>
+    </nav>
 
-<!-- STATS -->
-<div class="stats-strip reveal">
-  <div class="stat-item">
-    <div class="stat-num">15+</div>
-    <div class="stat-label">Menu Items</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">₹10</div>
-    <div class="stat-label">Starting From</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">8AM</div>
-    <div class="stat-label">Opens Sharp</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">Pure Veg</div>
-  </div>
-</div>
+    <!-- HERO -->
+    <section id="home">
+      <div>
+        <div class="hero-badge">🌿 100% Pure Vegetarian · Est. 2025</div>
+        <h1 class="hero-title">
+          Vaishnavi
+          <span class="gi">Tiffin Centre</span>
+          <span class="gn">— VTC.</span>
+        </h1>
+        <p class="hero-desc">
+          Authentic South Indian tiffin crafted fresh every morning — where
+          hygiene meets flavour. Served warm in the heart of Kalaburagi, every
+          single day.
+        </p>
+        <div class="hero-btns">
+          <a
+            class="btn-hs"
+            href="https://swig.gy/gc/1346430/Guruprasad-10544147"
+            target="_blank"
+            >🛵 Order on Swiggy</a
+          >
+          <a
+            class="btn-hz"
+            href="https://zomato.onelink.me/xqzv/v74eqwcw"
+            target="_blank"
+            >🍽 Order on Zomato</a
+          >
+          <a class="btn-hg" href="#menu">View Menu</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-logo-big">
+          <div class="pent-out">
+            <div class="pent-in">
+              <div class="logo-sf">🌻</div>
+              <div class="logo-vtc">VTC</div>
+              <div class="logo-pv">✦ Pure Veg ✦</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-chips">
+          <div class="chip chip-1">🕗 Open 8AM–2PM</div>
+          <div class="chip chip-2">✅ Hygiene First</div>
+          <div class="chip chip-3">🌿 100% Veg</div>
+        </div>
+      </div>
+      <div class="hero-deco"></div>
+    </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <p class="section-eyebrow">Our Story</p>
-      <h2 class="section-title">BORN FROM<br><span class="gold">PASSION</span></h2>
-      <p>
-        <strong>Vaishnavi Tiffin Centre</strong> opened its doors in 2025 with one simple mission — to serve hot, fresh, authentic South Indian breakfast that feels like home. 
-        Located in the heart of Kalaburagi on S B College Road, we've quickly become a trusted morning ritual for students, working professionals, and families alike.
-      </p>
-      <p>
-        Every item is prepared fresh each morning using quality ingredients. No shortcuts, no compromise — just good, honest food served with warmth.
-      </p>
-      <div class="pillars">
-        <div class="pillar">
-          <div class="pillar-icon">🧼</div>
-          <div class="pillar-title">Hygiene First</div>
-          <div class="pillar-desc">Our #1 priority. Clean kitchen, clean hands, clean conscience.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">🌿</div>
-          <div class="pillar-title">Pure Vegetarian</div>
-          <div class="pillar-desc">100% veg — no cross-contamination, ever.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">⚡</div>
-          <div class="pillar-title">Fresh Daily</div>
-          <div class="pillar-desc">Batter made fresh every single morning.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">❤️</div>
-          <div class="pillar-title">Made with Love</div>
-          <div class="pillar-desc">Traditional recipes, homestyle taste, every day.</div>
-        </div>
+    <!-- STATS -->
+    <div class="stats-bar reveal">
+      <div class="stat">
+        <div class="stat-n">15+</div>
+        <div class="stat-l">Menu Items</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">₹10</div>
+        <div class="stat-l">Starting From</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">8AM</div>
+        <div class="stat-l">Opens Fresh</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">100%</div>
+        <div class="stat-l">Pure Veg</div>
       </div>
     </div>
-    <div class="about-visual">
-      <div class="about-card">
-        <div class="about-card-label">📍 Location</div>
-        <div class="about-card-value" style="font-size:20px;font-family:'DM Sans',sans-serif;font-weight:600;">Opp. Jajee Petrol Pump</div>
-        <div class="about-card-sub">S B College Road, Kalaburagi – 585103</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-label">🕗 Opening Hours</div>
-        <div class="about-card-value">8:00 AM – 2:00 PM</div>
-        <div class="about-card-sub">Monday to Sunday · Fresh till we sell out!</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-label">📞 Call / WhatsApp</div>
-        <div class="about-card-value" style="font-size:24px;">+91 6361 223 364</div>
-        <div class="about-card-sub">Available during working hours</div>
-      </div>
-      <div class="about-card" style="border-left-color: var(--gold);">
-        <div class="about-card-label" style="color:var(--gold);">🌟 Our Promise</div>
-        <div class="about-card-value" style="font-size:18px;font-family:'DM Sans',sans-serif;font-weight:700;">"Fresh. Hygienic. Delicious."</div>
-        <div class="about-card-sub">That's the VTC guarantee, every single day.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- MENU -->
-<section id="menu">
-  <p class="section-eyebrow reveal">What We Serve</p>
-  <h2 class="section-title reveal">OUR <span class="gold">MENU</span></h2>
-  <div class="menu-tabs reveal">
-    <button class="tab active" onclick="filterMenu('all')">All Items</button>
-    <button class="tab" onclick="filterMenu('tiffin')">Tiffin</button>
-    <button class="tab" onclick="filterMenu('dosa')">Dosa</button>
-    <button class="tab" onclick="filterMenu('drinks')">Drinks</button>
-  </div>
-  <div class="menu-grid reveal" id="menuGrid">
-    <!-- Tiffin items -->
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🫓</div>
-        <div>
-          <div class="menu-name">Idli</div>
-          <div class="menu-badge">Tiffin</div>
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-wrap reveal">
+        <div class="about-body">
+          <div class="eyebrow">Our Story</div>
+          <h2 class="sec-title">
+            Made with<br /><span class="au">Passion</span> &amp;
+            <span class="g">Pride</span>
+          </h2>
+          <p>
+            <strong>Vaishnavi Tiffin Centre (VTC)</strong> opened its doors in
+            2025 with one simple mission — to bring hot, fresh, authentic South
+            Indian breakfast to every table in Kalaburagi. Nestled on S B
+            College Road, we've become a trusted morning ritual for students,
+            families, and working professionals alike.
+          </p>
+          <p>
+            Every dish is prepared from scratch each morning using quality
+            ingredients. No shortcuts, no compromise — just good, honest food
+            made the traditional way and served with genuine warmth.
+          </p>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-icon">🧼</div>
+              <div class="pillar-name">Hygiene First</div>
+              <div class="pillar-desc">
+                Our #1 promise. Spotless kitchen, clean hands, zero compromise.
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🌿</div>
+              <div class="pillar-name">Pure Veg Always</div>
+              <div class="pillar-desc">
+                100% vegetarian — no cross-contamination, ever.
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">⚡</div>
+              <div class="pillar-name">Fresh Daily</div>
+              <div class="pillar-desc">
+                Batter prepared fresh every single morning.
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">❤️</div>
+              <div class="pillar-name">Made with Love</div>
+              <div class="pillar-desc">
+                Traditional recipes, homestyle taste — every day.
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="menu-price"><span>₹</span>30</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🍩</div>
-        <div>
-          <div class="menu-name">Vada</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>40</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🍽️</div>
-        <div>
-          <div class="menu-name">Idli-Vada</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>50</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🫓</div>
-        <div>
-          <div class="menu-name">Set Dosa</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>40</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🫔</div>
-        <div>
-          <div class="menu-name">Paddu</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>40</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🟡</div>
-        <div>
-          <div class="menu-name">Mysore Bonda</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>40</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🫓</div>
-        <div>
-          <div class="menu-name">Puri</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>40</div>
-    </div>
-    <div class="menu-card" data-cat="tiffin">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🍛</div>
-        <div>
-          <div class="menu-name">Rice Bath</div>
-          <div class="menu-badge">Tiffin</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>30</div>
-    </div>
-    <!-- Dosa items -->
-    <div class="menu-card" data-cat="dosa">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🫓</div>
-        <div>
-          <div class="menu-name">Plain Dosa</div>
-          <div class="menu-badge">Dosa</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>30</div>
-    </div>
-    <div class="menu-card" data-cat="dosa">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🌯</div>
-        <div>
-          <div class="menu-name">Masala Dosa</div>
-          <div class="menu-badge">Dosa</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>40</div>
-    </div>
-    <div class="menu-card" data-cat="dosa">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🧈</div>
-        <div>
-          <div class="menu-name">Butter Dosa</div>
-          <div class="menu-badge">Dosa</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>50</div>
-    </div>
-    <div class="menu-card" data-cat="dosa">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🧀</div>
-        <div>
-          <div class="menu-name">Paneer Dosa</div>
-          <div class="menu-badge">Dosa</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>50</div>
-    </div>
-    <!-- Drinks -->
-    <div class="menu-card" data-cat="drinks">
-      <div class="menu-item-left">
-        <div class="menu-emoji">☕</div>
-        <div>
-          <div class="menu-name">Coffee</div>
-          <div class="menu-badge">Drinks</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>15</div>
-    </div>
-    <div class="menu-card" data-cat="drinks">
-      <div class="menu-item-left">
-        <div class="menu-emoji">🍵</div>
-        <div>
-          <div class="menu-name">Tea</div>
-          <div class="menu-badge">Drinks</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>10</div>
-    </div>
-    <div class="menu-card" data-cat="drinks">
-      <div class="menu-item-left">
-        <div class="menu-emoji">💧</div>
-        <div>
-          <div class="menu-name">Water Bottle 1L</div>
-          <div class="menu-badge">Drinks</div>
-        </div>
-      </div>
-      <div class="menu-price"><span>₹</span>20</div>
-    </div>
-  </div>
-
-  <!-- Order CTA -->
-  <div class="order-cta reveal">
-    <div class="order-cta-text">
-      <h3>HUNGRY? ORDER NOW 🛵</h3>
-      <p>We're live on Swiggy! Get your favourite VTC tiffin delivered hot to your door.</p>
-    </div>
-    <a class="btn-swiggy" href="https://swig.gy/gc/1346430/Guruprasad-10544147" target="_blank">
-      <span class="swiggy-logo">🛵</span>
-      Order on Swiggy
-    </a>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <p class="section-eyebrow reveal">Find Us</p>
-  <h2 class="section-title reveal">GET IN <span class="gold">TOUCH</span></h2>
-  <div class="contact-grid reveal">
-    <div class="contact-info">
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div>
-          <div class="contact-label">Address</div>
-          <div class="contact-value">Opposite Jajee Petrol Pump,<br>S B College Road,<br>Kalaburagi – 585103, Karnataka</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div>
-          <div class="contact-label">Phone / WhatsApp</div>
-          <div class="contact-value"><a href="tel:+916361223364">+91 6361 223 364</a></div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">🕗</div>
-        <div>
-          <div class="contact-label">Opening Hours</div>
-          <div class="contact-value">Monday – Sunday<br>8:00 AM to 2:00 PM</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">🛵</div>
-        <div>
-          <div class="contact-label">Online Delivery</div>
-          <div class="contact-value">
-            <a href="https://swig.gy/gc/1346430/Guruprasad-10544147" target="_blank" style="color:var(--green-light);">
-              Available on Swiggy →
-            </a>
+        <div class="about-cards">
+          <div class="acard">
+            <div class="acard-lbl">📍 Location</div>
+            <div
+              class="acard-val"
+              style="
+                font-family: &quot;Plus Jakarta Sans&quot;;
+                font-size: 17px;
+              "
+            >
+              Opp. Jajee Petrol Pump
+            </div>
+            <div class="acard-sub">
+              S B College Road, Kalaburagi – 585103, Karnataka
+            </div>
+          </div>
+          <div class="acard">
+            <div class="acard-lbl">🕗 Opening Hours</div>
+            <div class="acard-val">8:00 AM – 2:00 PM</div>
+            <div class="acard-sub">Monday to Sunday · Fresh every morning!</div>
+          </div>
+          <div class="acard">
+            <div class="acard-lbl">📞 Call / WhatsApp</div>
+            <div class="acard-val">+91 6361 223 364</div>
+            <div class="acard-sub">Available during working hours</div>
+          </div>
+          <div class="acard gold">
+            <div class="acard-lbl">🌟 Our Promise</div>
+            <div class="acard-val" style="font-style: italic; font-size: 22px">
+              "Fresh. Hygienic. Delicious."
+            </div>
+            <div class="acard-sub">
+              The VTC guarantee — every day, without fail.
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="map-box">
-      <div class="map-header">
-        📍 Vaishnavi Tiffin Centre, Kalaburagi
+    </section>
+
+    <!-- MENU -->
+    <section id="menu">
+      <div class="eyebrow reveal">What We Serve</div>
+      <h2 class="sec-title reveal">Our <span class="au">Menu</span></h2>
+      <div class="menu-tabs reveal">
+        <button class="tab active" onclick="filterMenu('all', this)">
+          All Items
+        </button>
+        <button class="tab" onclick="filterMenu('tiffin', this)">Tiffin</button>
+        <button class="tab" onclick="filterMenu('dosa', this)">Dosa</button>
+        <button class="tab" onclick="filterMenu('drinks', this)">Drinks</button>
       </div>
-      <div class="map-inner">
-        <div class="map-pin">🗺️</div>
-        <p>Opposite Jajee Petrol Pump,<br>S B College Road, Kalaburagi – 585103</p>
-        <a class="map-link" href="https://www.google.com/maps/search/Vaishnavi+Tiffin+Centre+SB+College+Road+Kalaburagi" target="_blank">
-          Open in Google Maps →
-        </a>
+      <div class="menu-grid reveal" id="menuGrid">
+        <!-- Tiffin -->
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🫓</span
+            ><img data-query="Idli" alt="Idli" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Idli</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>30</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🍩</span
+            ><img src="assets/vada.png" alt="Vada" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Vada</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>40</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🍽️</span
+            ><img src="assets/idli-vada.png" alt="Idli Vada" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Idli-Vada</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>50</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🥞</span
+            ><img src="assets/set-dosa.png" alt="Set Dosa" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Set Dosa</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>40</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🫔</span
+            ><img data-query="Paddu Paniyaram" alt="Paddu" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Paddu</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>40</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🟡</span
+            ><img
+              src="assets/mysore-bonda.png"
+              alt="Mysore Bonda"
+              loading="lazy"
+            />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Mysore Bonda</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>40</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🫓</span
+            ><img data-query="Puri Bhaji" alt="Puri" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Puri</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>40</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="tiffin">
+          <div class="mcard-img-wrap">
+            <span class="ef">🍛</span
+            ><img src="assets/rice-bath.png" alt="Rice Bath" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Tiffin</div>
+              <div class="mcard-name">Rice Bath</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>30</div>
+          </div>
+        </div>
+
+        <!-- Dosa -->
+        <div class="mcard" data-cat="dosa">
+          <div class="mcard-img-wrap">
+            <span class="ef">🫓</span
+            ><img src="assets/plain-dosa.png" alt="Plain Dosa" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Dosa</div>
+              <div class="mcard-name">Plain Dosa</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>30</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="dosa">
+          <div class="mcard-img-wrap">
+            <span class="ef">🌯</span
+            ><img data-query="Masala Dosa" alt="Masala Dosa" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Dosa</div>
+              <div class="mcard-name">Masala Dosa</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>40</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="dosa">
+          <div class="mcard-img-wrap">
+            <span class="ef">🧈</span
+            ><img
+              src="assets/butter-dosa.png"
+              alt="Butter Dosa"
+              loading="lazy"
+            />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Dosa</div>
+              <div class="mcard-name">Butter Dosa</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>50</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="dosa">
+          <div class="mcard-img-wrap">
+            <span class="ef">🧀</span
+            ><img
+              src="assets/paneer-dosa.png"
+              alt="Paneer Dosa"
+              loading="lazy"
+            />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Dosa</div>
+              <div class="mcard-name">Paneer Dosa</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>50</div>
+          </div>
+        </div>
+
+        <!-- Drinks -->
+        <div class="mcard" data-cat="drinks">
+          <div class="mcard-img-wrap">
+            <span class="ef">☕</span
+            ><img
+              data-query="South Indian Filter Coffee"
+              alt="Coffee"
+              loading="lazy"
+            />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Drinks</div>
+              <div class="mcard-name">Coffee</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>15</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="drinks">
+          <div class="mcard-img-wrap">
+            <span class="ef">🍵</span
+            ><img src="assets/tea.png" alt="Tea" loading="lazy" />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Drinks</div>
+              <div class="mcard-name">Tea</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>10</div>
+          </div>
+        </div>
+
+        <div class="mcard" data-cat="drinks">
+          <div class="mcard-img-wrap">
+            <span class="ef">💧</span
+            ><img
+              src="assets/water-bottle.png"
+              alt="Water Bottle"
+              loading="lazy"
+            />
+          </div>
+          <div class="mcard-body">
+            <div>
+              <div class="mcard-cat">Drinks</div>
+              <div class="mcard-name">Water Bottle 1L</div>
+            </div>
+            <div class="mcard-price"><sup>₹</sup>20</div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div>
-    <div class="footer-brand">VAISHNAVI <span>TIFFIN</span> CENTRE</div>
-    <div class="footer-tagline">Pure Veg · Fresh · Hygienic · Kalaburagi</div>
-  </div>
-  <div class="footer-links">
-    <a href="#about">About</a>
-    <a href="#menu">Menu</a>
-    <a href="#contact">Contact</a>
-    <a href="https://swig.gy/gc/1346430/Guruprasad-10544147" target="_blank">Swiggy</a>
-  </div>
-  <div class="footer-copy">© 2025 VTC. All rights reserved.</div>
-</footer>
+      <div class="order-cta reveal">
+        <div class="octa-text">
+          <h3>Hungry? Order Now! 🛵</h3>
+          <p>
+            We're live on Swiggy &amp; Zomato — hot tiffin delivered to your
+            door.
+          </p>
+        </div>
+        <div class="octa-btns">
+          <a
+            class="btn-os"
+            href="https://swig.gy/gc/1346430/Guruprasad-10544147"
+            target="_blank"
+            >🛵 Order on Swiggy</a
+          >
+          <a
+            class="btn-oz"
+            href="https://zomato.onelink.me/xqzv/v74eqwcw"
+            target="_blank"
+            >🍽 Order on Zomato</a
+          >
+        </div>
+      </div>
+    </section>
 
-<script>
-  // Menu filter
-  function filterMenu(cat) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
-    document.querySelectorAll('.menu-card').forEach(card => {
-      if (cat === 'all' || card.dataset.cat === cat) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="eyebrow reveal">Find Us</div>
+      <h2 class="sec-title reveal">Get in <span class="au">Touch</span></h2>
+      <div class="contact-grid reveal">
+        <div class="cinfo">
+          <div class="citem">
+            <div class="cicon">📍</div>
+            <div>
+              <div class="clabel">Address</div>
+              <div class="cval">
+                Opposite Jajee Petrol Pump,<br />S B College Road,<br />Kalaburagi
+                – 585103, Karnataka
+              </div>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="cicon">📞</div>
+            <div>
+              <div class="clabel">Phone / WhatsApp</div>
+              <div class="cval">
+                <a href="tel:+916361223364">+91 6361 223 364</a>
+              </div>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="cicon">🕗</div>
+            <div>
+              <div class="clabel">Opening Hours</div>
+              <div class="cval">Monday – Sunday<br />8:00 AM to 2:00 PM</div>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="cicon">🛵</div>
+            <div>
+              <div class="clabel">Order Online</div>
+              <div class="cval">
+                <a
+                  href="https://swig.gy/gc/1346430/Guruprasad-10544147"
+                  target="_blank"
+                  style="color: #fc8019; font-weight: 700"
+                  >Swiggy →</a
+                >&nbsp;&nbsp;<a
+                  href="https://zomato.onelink.me/xqzv/v74eqwcw"
+                  target="_blank"
+                  style="color: #e23744; font-weight: 700"
+                  >Zomato →</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="map-box">
+          <div class="map-head">📍 Vaishnavi Tiffin Centre, Kalaburagi</div>
+          <div class="map-body">
+            <div class="map-icon">🗺️</div>
+            <div class="map-addr">
+              Opposite Jajee Petrol Pump,<br />S B College Road,<br />Kalaburagi
+              – 585103
+            </div>
+            <a
+              class="btn-map"
+              href="https://www.google.com/maps/search/Vaishnavi+Tiffin+Centre+SB+College+Road+Kalaburagi"
+              target="_blank"
+              >Open in Google Maps →</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <div class="footer-brand">VAISHNAVI <span>TIFFIN</span> CENTRE</div>
+        <div class="footer-sub">
+          Pure Veg · Fresh · Hygienic · Kalaburagi, Karnataka
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Contact</a>
+        <a href="https://swig.gy/gc/1346430/Guruprasad-10544147" target="_blank"
+          >Swiggy</a
+        >
+        <a href="https://zomato.onelink.me/xqzv/v74eqwcw" target="_blank"
+          >Zomato</a
+        >
+      </div>
+      <div class="footer-copy">© 2025 VTC. All rights reserved.</div>
+    </footer>
+
+    <script>
+      // Menu filter
+      function filterMenu(cat, btn) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".mcard").forEach((c) => {
+          c.classList.toggle("hidden", cat !== "all" && c.dataset.cat !== cat);
+        });
       }
-    });
-  }
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+      // Scroll reveal
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+
+      // Load menu images by searching a relevant Wikipedia page per dish.
+      async function fetchWikiThumbnail(query) {
+        const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=600&format=json&origin=*`;
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const data = await res.json();
+        const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+        return pages[0]?.thumbnail?.source || null;
       }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-</body>
+
+      async function loadMenuImages() {
+        const customImages = [
+          ...document.querySelectorAll(".mcard-img-wrap img[src]"),
+        ];
+        customImages.forEach((img) => {
+          const markLoaded = () => {
+            img.classList.add("loaded");
+            img.parentElement.classList.add("has-image");
+          };
+          if (img.complete && img.naturalWidth > 0) {
+            markLoaded();
+          } else {
+            img.addEventListener("load", markLoaded, { once: true });
+            img.addEventListener("error", () => img.remove(), { once: true });
+          }
+        });
+
+        const images = [
+          ...document.querySelectorAll(".mcard-img-wrap img[data-query]"),
+        ];
+        for (const img of images) {
+          const query = img.dataset.query;
+          let resolvedSrc = null;
+          try {
+            resolvedSrc = await fetchWikiThumbnail(query);
+          } catch (e) {
+            resolvedSrc = null;
+          }
+          if (resolvedSrc) {
+            img.src = resolvedSrc;
+            img.addEventListener(
+              "load",
+              () => {
+                img.classList.add("loaded");
+                img.parentElement.classList.add("has-image");
+              },
+              { once: true },
+            );
+            img.addEventListener(
+              "error",
+              () => {
+                img.remove();
+              },
+              { once: true },
+            );
+          } else {
+            img.remove();
+          }
+        }
+      }
+      loadMenuImages();
+    </script>
+  </body>
 </html>
